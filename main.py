@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Play the game")
 icon = pygame.image.load("img/logo.png")
 pygame.display.set_icon(icon)
-target_img = pygame.image.load("img/logo.png")
+target_img = pygame.image.load("img/target.png")
 target_width = 50
 target_height = 50
 
