@@ -18,10 +18,15 @@ target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 
 color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
+target_dx = 3  # Скорость по оси X
+target_dy = 3  # Скорость по оси Y
+
+clock = pygame.time.Clock()
+FPS = 60  # Количество кадров в секунду
 
 running = True
 while running:
-    screen.fill(color)
+    clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -30,7 +35,21 @@ while running:
             if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
                 target_x = random.randint(0, SCREEN_WIDTH - target_width)
                 target_y = random.randint(0, SCREEN_HEIGHT - target_height)
+
+    target_x += target_dx
+    target_y += target_dy
+
+    if target_x <= 0 or target_x >= SCREEN_WIDTH - target_width:
+        target_dx = -target_dx
+        # Изменение цвета фона при столкновении с вертикальной границей
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    if target_y <= 0 or target_y >= SCREEN_HEIGHT - target_height:
+        target_dy = -target_dy
+        # Изменение цвета фона при столкновении с горизонтальной границей
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    screen.fill(color)
     screen.blit(target_img, (target_x, target_y))
     pygame.display.update()
-    
+
 pygame.quit()
