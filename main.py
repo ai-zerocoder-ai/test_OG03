@@ -24,6 +24,12 @@ target_dy = 3  # Скорость по оси Y
 clock = pygame.time.Clock()
 FPS = 60  # Количество кадров в секунду
 
+pygame.font.init()
+font_size = 30
+font = pygame.font.SysFont(None, font_size)
+
+hit_count = 0
+
 running = True
 while running:
     clock.tick(FPS)
@@ -33,6 +39,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             if target_x < mouse_x < target_x + target_width and target_y < mouse_y < target_y + target_height:
+                hit_count += 1  # Увеличение счетчика
                 target_x = random.randint(0, SCREEN_WIDTH - target_width)
                 target_y = random.randint(0, SCREEN_HEIGHT - target_height)
 
@@ -50,6 +57,9 @@ while running:
 
     screen.fill(color)
     screen.blit(target_img, (target_x, target_y))
+    # Подготовка текста счетчика
+    hit_text = font.render(f"bull's-eye: {hit_count}", True, (255, 255, 255))
+    # Отображение текста в верхнем левом углу
+    screen.blit(hit_text, (10, 10))
     pygame.display.update()
-
 pygame.quit()
